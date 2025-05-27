@@ -1,0 +1,172 @@
+:root {
+    --primary-color: #ff6a00;
+    --primary-color-alpha: rgba(255, 106, 0, 0.10);
+    --dark-color : #4f2f12;
+    --light-color: #ffefe0;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+* {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: bold;
+}
+
+*::selection {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+.backboard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.shadow {
+    position: absolute;
+    width: 200%;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(circle, var(--primary-color-alpha) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.container h1 {
+    font-size: 5rem;
+    color: var(--primary-color);
+}
+
+.navbar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 20px);
+    height: 50px;
+    padding: 10px;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.navbar ul li {
+    list-style: none;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: var(--primary-color);
+}
+
+.navbar button {
+    background-color: transparent;
+    border: solid 3px var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navbar button:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.blurred {
+    filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    top: -5%;
+    left: -5%;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--light-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal button:hover {
+    background-color: var(--dark-color);
+}
