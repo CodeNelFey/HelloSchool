@@ -10,20 +10,19 @@ function Timer({
                    cycleCount,
                     setCycleCount,
                    time,
-                   setTime,
                    isRunning,
-                   setIsRunning,
                    currentCycle,
-                   setCurrentCycle,
                    isWorkPhase,
-                   setIsWorkPhase,
                    startTimer,
                    stopTimer,
                    resetTimer
                }: {
     workDuration: number;
+    setWorkDuration: React.Dispatch<React.SetStateAction<number>>;
     breakDuration: number;
+    setBreakDuration: React.Dispatch<React.SetStateAction<number>>;
     cycleCount: number;
+    setCycleCount: React.Dispatch<React.SetStateAction<number>>;
     time: number;
     setTime: React.Dispatch<React.SetStateAction<number>>;
     isRunning: boolean;
@@ -39,7 +38,7 @@ function Timer({
 
 
 
-    const [circleSize, setCircleSize] = useState(100);
+    const [circleSize] = useState(100);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 

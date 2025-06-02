@@ -1,0 +1,83 @@
+[
+  {
+    "title": "4ème",
+    "children": [
+      {
+        "title": "Français",
+        "children": []
+      },
+      {
+        "title": "Histoire",
+        "children": []
+      },
+      {
+        "title": "Mathématiques",
+        "children": [
+          {
+            "title": "Pythagore",
+            "children": [
+              {
+                "title": "cour"
+              }
+            ]
+          },
+          {
+            "title": "Thales",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "6ème",
+    "children": [
+      {
+        "title": "Français",
+        "children": []
+      },
+      {
+        "title": "Histoire",
+        "children": []
+      },
+      {
+        "title": "Mathématiques",
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "CE1",
+    "children": [
+      {
+        "title": "Français",
+        "children": []
+      },
+      {
+        "title": "Histoire",
+        "children": []
+      },
+      {
+        "title": "Mathématiques",
+        "children": []
+      }
+    ]
+  },
+  {
+    "title": "CP",
+    "children": [
+      {
+        "title": "Français",
+        "children": []
+      },
+      {
+        "title": "Histoire",
+        "children": []
+      },
+      {
+        "title": "Mathématiques",
+        "children": []
+      }
+    ]
+  }
+]

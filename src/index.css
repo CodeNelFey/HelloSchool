@@ -1,5 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+link[rel="icon"] {
+    color: var(--primary-color);
+}
+
 :root {
-    --primary-color: #ff6a00;
+    --primary-color: #ff9100;
     --primary-color-alpha: rgba(255, 106, 0, 0.10);
     --dark-color : #4f2f12;
     --light-color: #ffefe0;
@@ -120,7 +128,7 @@ html, body, #root {
     color: var(--primary-color);
 }
 
-.navbar button {
+.navbar .right button {
     background-color: transparent;
     border: solid 3px var(--primary-color);
     color: var(--primary-color);
@@ -130,9 +138,28 @@ html, body, #root {
     transition: 0.3s;
 }
 
+.navbar .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .right .color-picker {
+    margin-right: 20px;
+}
+
 .navbar button:hover {
     background-color: var(--primary-color);
     color: var(--light-color);
+}
+
+.navbar a {
+    height: 100%;
+}
+
+.navbar a svg {
+    height: 100%;
+    transition: fill 0.3s ease;
 }
 
 .color-picker {
@@ -161,10 +188,11 @@ html, body, #root {
     flex-direction: column;
     position: relative;
     transition: 0.3s ease;
+    z-index: 50;
 }
 
 .color-menu {
-    background-color: var(--light-color);
+    background-color: var(--primary-color-alpha);
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     display: flex;
     align-items: center;
@@ -184,7 +212,6 @@ html, body, #root {
     padding: 40px 10px 10px;
 }
 
-
 .color-circle {
     width: 20px;
     height: 20px;
@@ -192,6 +219,7 @@ html, body, #root {
     cursor: pointer;
     transition: transform 0.3s ease;
     margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .color-circle:hover {
@@ -199,19 +227,35 @@ html, body, #root {
 }
 
 .color-circle.orange {
-    background-color: #ff6a00;
+    background: linear-gradient(135deg, #ffefe0 50%, #ff9100 50%);
 }
 
 .color-circle.blue {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #ffefe0 50%, #007bff 50%);
 }
 
 .color-circle.green {
-    background-color: #28a745;
+    background: linear-gradient(135deg, #ffefe0 50%, #28a745 50%);
 }
 
 .color-circle.red {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #ffefe0 50%, #dc3545 50%);
+}
+
+.color-circle.darkorange {
+    background: linear-gradient(135deg, #4f2f12 50%, #ff9100 50%);
+}
+
+.color-circle.darkblue {
+    background: linear-gradient(135deg, #4f2f12 50%, #007bff 50%);
+}
+
+.color-circle.darkgreen {
+    background: linear-gradient(135deg, #4f2f12 50%, #28a745 50%);
+}
+
+.color-circle.darkred {
+    background: linear-gradient(135deg, #4f2f12 50%, #dc3545 50%);
 }
 
 .blurred {
@@ -410,7 +454,7 @@ input[type="number"] {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: var(--light-color);
+    background-color: var(--primary-color-alpha);
     border-radius: 100px;
     padding: 5px 20px 5px 5px;
     display: flex;
@@ -438,4 +482,134 @@ input[type="number"] {
 .littleTimer .text p {
     margin: 0;
     color: var(--dark-color);
+}
+
+.menu {
+    position: fixed;
+    background-color: var(--primary-color-alpha);
+    border-radius: 20px;
+    height: calc(100% - 100px);
+    top: 75px;
+    left: 25px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu .niveau-0 button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    width: 90%;
+    height: 30px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 7px;
+    color: var(--primary-color);
+    font-size: 1em;
+    background-color: var(--primary-color-alpha);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.menu .niveau-0 button:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+
+.menu .niveau-1 button {
+    background-color: transparent;
+}
+
+.menu .niveau-1 button:hover {
+    background-color: var(--primary-color-alpha);
+    color: var(--primary-color);
+}
+
+.menu .niveau-2.ml-2 {
+    width: 80%;
+    border-left: solid 2px var(--primary-color);
+}
+
+.menu h2 {
+    color: var(--primary-color);
+    width: 100%;
+    text-align: center;
+}
+
+.searchList {
+    list-style-type: none;
+}
+
+.menu input {
+    width: calc(100% - 40px);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    color: var(--primary-color);
+    background-color: var(--primary-color-alpha);
+    padding: 0 10px;
+}
+
+.searchList button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    width: 90%;
+    height: 30px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 7px;
+    color: var(--primary-color);
+    font-size: 1em;
+    background-color: var(--primary-color-alpha);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.searchList button:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.searchList button div {
+    width: fit-content;
+}
+
+
+
+.cours-content {
+    position: absolute;
+    width: 75%;
+    top: 50px;
+    left: 20%;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
+
+.cours-content hr {
+    border: solid 1px var(--primary-color);
+}
+
+.cours-content strong {
+    color: var(--primary-color);
+}
+
+.cours-content .katex-display {
+    font-size: 1.8em;
+    margin: 1.5em 0;
 }

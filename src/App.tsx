@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import Login from "./components/Login.tsx";
 import Timer from "./components/Timer.tsx";
 import LittleTimer from "./components/LittleTimer.tsx";
+import Cours from "./components/Cours.tsx";
 
 function App() {
     const [content, setContent] = useState('home');
@@ -111,7 +112,7 @@ function App() {
             case 'home':
                 return <h1>HelloSchool</h1>;
             case 'cours':
-                return <h1>Bienvenue dans les cours</h1>;
+                return <Cours/>;
             case 'exercices':
                 return <h1>Bienvenue dans les exercices</h1>;
             case 'timer':
