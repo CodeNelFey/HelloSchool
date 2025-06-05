@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy HelloSchool
 
 on:
   push:
@@ -7,28 +7,41 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to VPS
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.7.0
+      - name: Run SSH commands on remote server
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to server
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p 16385"
-            if [ -d '/var/www/html/HelloSchool/.git' ]; then
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          port: 16385
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "🔍 Vérification du dossier..."
+            if [ -d /var/www/html/HelloSchool/.git ]; then
+              echo "📦 Projet existant, pull..."
               cd /var/www/html/HelloSchool && git pull origin main
             else
+              echo "📥 Projet non trouvé, clone..."
               git clone https://github.com/CodeNelFey/HelloSchool.git /var/www/html/HelloSchool
             fi
+
+            echo "📂 Accès au dossier projet"
             cd /var/www/html/HelloSchool
+
+            echo "🔧 Installation des dépendances"
             npm install
+
+            echo "⚙️ Build du projet"
             npm run build
+
+            echo "🧹 Fermeture de l'ancien screen (s'il existe)"
             screen -S helloschool -X quit || true
+
+            echo "🚀 Lancement de l'application sur le port 3030"
             screen -dmS helloschool npm run preview -- --port 3030
-          "
