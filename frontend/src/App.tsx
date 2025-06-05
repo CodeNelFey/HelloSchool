@@ -6,6 +6,7 @@ import Timer from "./components/Timer";
 import LittleTimer from "./components/LittleTimer";
 import Cours from "./components/Cours";
 import UpdateHistory from './components/UpdateHistory';
+import Notification from "./components/Notification"
 
 function App() {
     const [content, setContent] = useState('home');
@@ -21,6 +22,7 @@ function App() {
     const [currentCycle, setCurrentCycle] = useState(0);
     const [isWorkPhase, setIsWorkPhase] = useState(true);
     const intervalRef = useRef<number | null>(null);
+    const [notification, setNotification] = useState<{ message: string, type: "error" | "success" | "info" } | null>(null);
 
     const initialDuration = isWorkPhase ? workDuration : breakDuration;
 
@@ -66,6 +68,11 @@ function App() {
             }
         }
     }, [time, isRunning]);
+
+    const showNotification = (message: string, type: "success" | "error" | "info") => {
+        setNotification({ message, type });
+        setTimeout(() => setNotification(null), 4000);
+    };
 
     const startTimer = () => {
         if (!isRunning) {
@@ -165,8 +172,11 @@ function App() {
                     content={content}
                 />
             </div>
-            {modalType === "login" && <Login setModalType={setModalType} />}
-            {modalType === "signin" && <Signin setModalType={setModalType} />}
+
+            {modalType === "login" && <Login setModalType={setModalType} showNotification={showNotification} />}
+            {modalType === "signin" && <Signin setModalType={setModalType} showNotification={showNotification} />}
+
+            {notification && <Notification message={notification.message} type={notification.type} />}
         </>
     );
 }
