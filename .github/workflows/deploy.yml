@@ -1,22 +1,34 @@
-name: 🚀 Deploy HelloSchool to VPS
+name: Deploy to Server
 
 on:
   push:
-    branches: [ main ]  # ou la branche de prod
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⏳ Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔐 Setup SSH
+      - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: 🚀 Run deployment script on VPS
+      - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash ~/HelloSchool/deploy.sh'
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} "
+            if [ -d '/home/ubuntu/HelloSchool/.git' ]; then
+              cd /home/ubuntu/HelloSchool && git pull origin main
+            else
+              git clone git@github.com:ton-utilisateur/ton-repo.git /home/ubuntu/HelloSchool
+            fi
+            cd /home/ubuntu/HelloSchool
+            npm install
+            npm run build
+            screen -S helloschool -X quit || true
+            screen -dmS helloschool npm run preview -- --port 3030
+          "
