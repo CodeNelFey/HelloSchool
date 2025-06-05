@@ -1,0 +1,22 @@
+name: 🚀 Deploy HelloSchool to VPS
+
+on:
+  push:
+    branches: [ main ]  # ou la branche de prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⏳ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔐 Setup SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🚀 Run deployment script on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash ~/HelloSchool/deploy.sh'
