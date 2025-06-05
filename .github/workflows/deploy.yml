@@ -20,13 +20,13 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} "
-            if [ -d '/home/ubuntu/HelloSchool/.git' ]; then
-              cd /home/ubuntu/HelloSchool && git pull origin main
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            if [ -d '/var/www/html/HelloSchool/.git' ]; then
+              cd /var/www/html/HelloSchool && git pull origin main
             else
-              git clone git@github.com:ton-utilisateur/ton-repo.git /home/ubuntu/HelloSchool
+              git clone https://github.com/CodeNelFey/HelloSchool.git /var/www/html/HelloSchool
             fi
-            cd /home/ubuntu/HelloSchool
+            cd /var/www/html/HelloSchool
             npm install
             npm run build
             screen -S helloschool -X quit || true
