@@ -112,7 +112,7 @@ function App() {
     const renderContent = () => {
         switch (content) {
             case 'home':
-                return <h1>HelloSchool</h1>;
+                return <h1>HelloSchool Test GithubAction</h1>;
             case 'cours':
                 return <Cours />;
             case 'exercices':
