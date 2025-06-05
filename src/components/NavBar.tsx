@@ -8,6 +8,8 @@ function NavBar({ onNavClick, onLoginClick }: { onNavClick: (section: string) =>
         document.documentElement.style.setProperty('--primary-color-alpha', `${color}20`);
         document.documentElement.style.setProperty('--light-color', light ? tinycolor(color).lighten(45).toString() : tinycolor(color).darken(45).toString());
         document.documentElement.style.setProperty('--dark-color', light ? tinycolor(color).darken(45).toString() : tinycolor(color).lighten(45).toString());
+        document.documentElement.style.setProperty('--dark-color-alpha', light ? `${tinycolor(color).darken(45).toString()}50` : `${tinycolor(color).lighten(45).toString()}70`);
+
     }
 
     return (

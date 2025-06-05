@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import NavBar from './components/NavBar';
-import Login from "./components/Login.tsx";
-import Timer from "./components/Timer.tsx";
-import LittleTimer from "./components/LittleTimer.tsx";
-import Cours from "./components/Cours.tsx";
+import Login from "./components/Login";
+import Signin from "./components/Signin";
+import Timer from "./components/Timer";
+import LittleTimer from "./components/LittleTimer";
+import Cours from "./components/Cours";
+import UpdateHistory from './components/UpdateHistory';
 
 function App() {
     const [content, setContent] = useState('home');
     const [fade, setFade] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState<"login" | "signin" | null>(null);
 
     // TIMER STATES
     const [workDuration, setWorkDuration] = useState(10);
@@ -112,33 +114,35 @@ function App() {
             case 'home':
                 return <h1>HelloSchool</h1>;
             case 'cours':
-                return <Cours/>;
+                return <Cours />;
             case 'exercices':
                 return <h1>Bienvenue dans les exercices</h1>;
             case 'timer':
-                return <Timer
-                    workDuration={workDuration}
-                    setWorkDuration={setWorkDuration}
-                    breakDuration={breakDuration}
-                    setBreakDuration={setBreakDuration}
-                    cycleCount={cycleCount}
-                    setCycleCount={setCycleCount}
-                    time={time}
-                    setTime={setTime}
-                    isRunning={isRunning}
-                    setIsRunning={setIsRunning}
-                    currentCycle={currentCycle}
-                    setCurrentCycle={setCurrentCycle}
-                    isWorkPhase={isWorkPhase}
-                    setIsWorkPhase={setIsWorkPhase}
-                    startTimer={startTimer}
-                    stopTimer={stopTimer}
-                    resetTimer={resetTimer}
-                />;
+                return (
+                    <Timer
+                        workDuration={workDuration}
+                        setWorkDuration={setWorkDuration}
+                        breakDuration={breakDuration}
+                        setBreakDuration={setBreakDuration}
+                        cycleCount={cycleCount}
+                        setCycleCount={setCycleCount}
+                        time={time}
+                        setTime={setTime}
+                        isRunning={isRunning}
+                        setIsRunning={setIsRunning}
+                        currentCycle={currentCycle}
+                        setCurrentCycle={setCurrentCycle}
+                        isWorkPhase={isWorkPhase}
+                        setIsWorkPhase={setIsWorkPhase}
+                        startTimer={startTimer}
+                        stopTimer={stopTimer}
+                        resetTimer={resetTimer}
+                    />
+                );
             case 'aide':
                 return <h1>Bienvenue dans l'aide</h1>;
             case 'propos':
-                return <h1>Bienvenue dans la section à propos</h1>;
+                return <UpdateHistory />;
             default:
                 return <h1>Contenu non trouvé</h1>;
         }
@@ -147,8 +151,8 @@ function App() {
     return (
         <>
             <div className="shadow"></div>
-            <div className={`backboard ${isModalOpen ? 'blurred' : ''}`}>
-                <NavBar onNavClick={handleContentChange} onLoginClick={() => setIsModalOpen(true)} />
+            <div className={`backboard ${modalType ? 'blurred' : ''}`}>
+                <NavBar onNavClick={handleContentChange} onLoginClick={() => setModalType("login")} />
                 <div className={`container ${fade ? 'fade-out' : 'fade-in'}`}>
                     {renderContent()}
                 </div>
@@ -161,7 +165,8 @@ function App() {
                     content={content}
                 />
             </div>
-            {isModalOpen && <Login setIsModalOpen={setIsModalOpen} />}
+            {modalType === "login" && <Login setModalType={setModalType} />}
+            {modalType === "signin" && <Signin setModalType={setModalType} />}
         </>
     );
 }

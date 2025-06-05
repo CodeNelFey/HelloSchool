@@ -16,9 +16,6 @@ const LittleTimer: React.FC<LittleTimerProps> = ({ time, initialDuration, isWork
 
     const progress = isWorkPhase ? (1 - (initialDuration - time) / initialDuration) * circleCircumference : (initialDuration - time) / initialDuration * circleCircumference;
 
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
     return (
         <div
             className="littleTimer"

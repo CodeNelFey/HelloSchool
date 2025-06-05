@@ -71,8 +71,8 @@ export const arrow = ( props: {size?: number; color?: string}) => {
 export const logo = ( props: { color?: string}) => {
     const { color = "black" } = props;
     return (
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             width="100%" viewBox="0 0 1080 1080" enable-background="new 0 0 1080 1080" xml:space="preserve">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="100%" viewBox="0 0 1080 1080" enable-background="new 0 0 1080 1080" xmlSpace="preserve">
 <path fill="none" opacity="1.000000" stroke="none"
       d="
 M711.000000,1081.000000

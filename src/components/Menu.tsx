@@ -1,5 +1,6 @@
 import { useState } from "react";
-import MenuItemComponent, { MenuItem } from "./MenuItemComponent";
+import MenuItemComponent from "./MenuItemComponent";
+import type { MenuItem } from "./MenuItemComponent";
 
 export default function Menu({
                                  menuData,
@@ -14,8 +15,6 @@ export default function Menu({
     const flattenItems = (items: MenuItem[], parentPath = ""): MenuItem[] => {
         return items.flatMap(item => {
             const fullPath = parentPath ? `${parentPath}/${item.title}` : item.title;
-            const hasOnlyCoursChild =
-                item.children?.length === 1 && item.children[0].title.toLowerCase() === "cour";
 
             const hasCours = item.children?.some(child => child.title.toLowerCase() === "cour");
 
