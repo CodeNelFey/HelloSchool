@@ -14,5 +14,4 @@ jobs:
 
       - name: Build project
         run: |
-          yarn
-          yarn generate
+          echo("hello world")
