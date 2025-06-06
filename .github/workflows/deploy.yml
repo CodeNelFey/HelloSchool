@@ -20,16 +20,26 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 16385
           script: |
-            cd /var/www/html/HelloSchool
+            cd /var/www/html/HelloSchool || exit 1
+  
             echo "[1/4] Pull latest code..."
             git pull origin main
-
-            echo "[2/4] Install dependencies..."
+            
+            echo "[2/4] Install dependencies frontend..."
+            cd frontend || exit 1
             npm install
-                        
-            echo "[2/4] Build project..."
+            echo "[3/4] Build frontend..."
             npm run build
-
+            
+            cd ..
+            
+            echo "[2/4] Install dependencies backend..."
+            cd backend || exit 1
+            npm install
+            
+            cd ..
+            
             echo "[4/4] Start preview script..."
             ./start-preview.sh
+
           
