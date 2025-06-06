@@ -15,9 +15,14 @@ export interface LoginResponse {
     };
 }
 
+const data = await fetch('/url.json')
+const json =  await data.json()
+const API_BASE = json.api_url
+
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
+    console.log(API_BASE)
     try {
-        const response = await fetch("http://helloschool.sohan-birotheau.fr/api/auth/login", {
+        const response = await fetch(`http://${API_BASE}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

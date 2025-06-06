@@ -6,11 +6,15 @@ export interface CreateUserData {
     birthdate: string;
 }
 
+const data = await fetch('/url.json')
+const json =  await data.json()
+const API_BASE = json.api_url
+
 export async function createUser(userData: CreateUserData): Promise<{ success: boolean; message: string }> {
     console.log("Données envoyées :", userData);
 
     try {
-        const response = await fetch("http://helloschool.sohan-birotheau.fr/api/auth/signup", {
+        const response = await fetch(`http://${API_BASE}/api/auth/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
