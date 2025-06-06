@@ -7,10 +7,17 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
+const corsOptions = {
     origin: ['http://localhost:3030', 'http://helloschool.sohan-birotheau.fr'],
     credentials: true,
-}));
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // ajoute si besoin
+};
+
+app.use(cors(corsOptions));
+
+// Gérer explicitement les requêtes OPTIONS (pré-vol)
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 

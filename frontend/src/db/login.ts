@@ -21,6 +21,7 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
+            credentials: 'include',
         });
 
         const resData = await response.json();
@@ -40,3 +41,4 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
         return { success: false, message: "Impossible de contacter le serveur" };
     }
 }
+

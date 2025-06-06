@@ -1,4 +1,3 @@
-
 export interface CreateUserData {
     nom: string;
     prenom: string;
@@ -16,7 +15,8 @@ export async function createUser(userData: CreateUserData): Promise<{ success: b
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify(userData),
+            credentials: 'include'  // Ajouté ici pour autoriser cookies/session si besoin
         });
 
         const data = await response.json();
@@ -31,4 +31,3 @@ export async function createUser(userData: CreateUserData): Promise<{ success: b
         return { success: false, message: "Impossible de contacter le serveur" };
     }
 }
-
