@@ -10,7 +10,7 @@ export async function createUser(userData: CreateUserData): Promise<{ success: b
     console.log("Données envoyées :", userData);
 
     try {
-        const response = await fetch("http://localhost:5000/api/auth/signup", {
+        const response = await fetch("http://helloschool.sohan-birotheau.fr/api/auth/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

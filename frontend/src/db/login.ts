@@ -17,7 +17,7 @@ export interface LoginResponse {
 
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
     try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch("http://helloschool.sohan-birotheau.fr/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
