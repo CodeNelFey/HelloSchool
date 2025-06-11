@@ -15,9 +15,13 @@ export interface LoginResponse {
     };
 }
 
-const data = await fetch('/url.json')
-const json =  await data.json()
-const API_BASE = json.api_url
+async function init() {
+    const data = await fetch('/url.json')
+    const json =  await data.json()
+    return json.api_url
+}
+
+const API_BASE = init();
 
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
     console.log(API_BASE)

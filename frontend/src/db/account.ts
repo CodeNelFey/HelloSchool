@@ -6,9 +6,13 @@ export interface User {
     imageUrl?: string;
 }
 
-const data = await fetch('/url.json')
-const json =  await data.json()
-const API_BASE = json.api_url
+async function init() {
+    const data = await fetch('/url.json')
+    const json =  await data.json()
+    return json.api_url
+}
+
+const API_BASE = init();
 
 const PROFILE_PIC_PATH = `${API_BASE}/profile-pics`;
 
