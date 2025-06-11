@@ -6,7 +6,7 @@ import Account from './Account'; // À créer
 
 function NavBar({ onNavClick, onLoginClick }: { onNavClick: (section: string) => void, onLoginClick: () => void }) {
     const [accountPopupVisible, setAccountPopupVisible] = useState(false);
-    const [profileImgUrlFetch, setProfileImgUrlFetch] = useState<string>("");
+    const [profileImgUrlFetch, setProfileImgUrlFetch] = useState<string>("../../default-profile.png");
 
     const changeTheme = (color: string, light: boolean) => {
         document.documentElement.style.setProperty('--primary-color', color);

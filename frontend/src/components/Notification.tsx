@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import 'react';
 import {crossNotif, infoNotif, okNotif} from "../assets/svg";
+import type {ReactNode} from "react";
 
 interface NotificationProps {
     message: string;

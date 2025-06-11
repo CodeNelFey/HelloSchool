@@ -1,5 +1,11 @@
 const updates = [
     {
+        date: '11 Juin 2025',
+        title: 'Ajout des comptes',
+        description: 'Tu peux maintenant créer un compte et changer ta photo de profil ! Pour le moment, ça ne sert pas à grand-chose, mais ça ne saurait tarder.',
+        tag: 'NEW'
+    },
+    {
         date: '4 Juin 2025',
         title: 'Ajout de la page d’historique',
         description: 'Nouvelle page listant les mises à jour et ajouts récents.',

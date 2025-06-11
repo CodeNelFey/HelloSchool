@@ -113,3 +113,21 @@ export function logout(): void {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 }
+
+
+export async function uploadProfileImage(userId: number, file: File) {
+    const formData = new FormData();
+    formData.append("profile", file);
+
+    const res = await fetch(`http://localhost:5000/api/users/${userId}/upload-profile`, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (!res.ok) {
+        throw new Error("Échec de l'upload de l'image.");
+    }
+
+    const data = await res.json();
+    return data.path;
+}
