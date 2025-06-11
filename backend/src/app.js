@@ -29,7 +29,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/profile-pics', express.static(path.join(__dirname, '../public/images/users')));
+app.use('/api/profile-pics', express.static(path.join(__dirname, '../public/images/users')));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {

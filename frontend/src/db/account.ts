@@ -10,7 +10,7 @@ export interface User {
 
 const API_BASE = api_url
 
-const PROFILE_PIC_PATH = `${API_BASE}/profile-pics`;
+const PROFILE_PIC_PATH = `${API_BASE}/api/profile-pics`;
 
 /**
  * Récupère les informations de l'utilisateur connecté à partir du localStorage.
