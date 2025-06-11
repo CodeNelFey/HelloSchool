@@ -1,3 +1,5 @@
+import {api_url} from "./api";
+
 export interface User {
     id: number;
     firstName: string;
@@ -6,13 +8,7 @@ export interface User {
     imageUrl?: string;
 }
 
-async function init() {
-    const data = await fetch('/url.json')
-    const json =  await data.json()
-    return json.api_url
-}
-
-const API_BASE = init();
+const API_BASE = api_url
 
 const PROFILE_PIC_PATH = `${API_BASE}/profile-pics`;
 

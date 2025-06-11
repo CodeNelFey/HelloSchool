@@ -1,3 +1,5 @@
+import {api_url} from "./api";
+
 export interface LoginData {
     email: string;
     password: string;
@@ -15,13 +17,7 @@ export interface LoginResponse {
     };
 }
 
-async function init() {
-    const data = await fetch('/url.json')
-    const json =  await data.json()
-    return json.api_url
-}
-
-const API_BASE = init();
+const API_BASE = api_url
 
 export async function loginUser(data: LoginData): Promise<LoginResponse> {
     console.log(API_BASE)

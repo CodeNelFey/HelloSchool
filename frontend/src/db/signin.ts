@@ -1,3 +1,5 @@
+import {api_url} from "./api";
+
 export interface CreateUserData {
     nom: string;
     prenom: string;
@@ -6,13 +8,7 @@ export interface CreateUserData {
     birthdate: string;
 }
 
-async function init() {
-    const data = await fetch('/url.json')
-    const json =  await data.json()
-    return json.api_url
-}
-
-const API_BASE = init();
+const API_BASE = api_url
 
 export async function createUser(userData: CreateUserData): Promise<{ success: boolean; message: string }> {
     console.log("Données envoyées :", userData);
