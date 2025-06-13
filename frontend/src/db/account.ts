@@ -64,6 +64,11 @@ export async function getFullName(): Promise<string> {
     return user ? `${user.firstName} ${user.lastName}` : "";
 }
 
+export async function getFirstName(): Promise<string> {
+    const user = await getCurrentUser();
+    return user ? user.firstName : ""
+}
+
 /**
  * Renvoie l'URL de l'image de profil de l'utilisateur connecté.
  * Si aucune image n'est trouvée, retourne l'image par défaut.

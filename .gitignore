@@ -12,6 +12,8 @@ backend/node_modules
 dist
 dist-ssr
 *.local
+frontend/src/db/api.ts
+backend/public/images/users
 
 # Editor directories and files
 .vscode/*

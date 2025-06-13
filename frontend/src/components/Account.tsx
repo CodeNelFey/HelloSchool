@@ -27,6 +27,7 @@ const Account: React.FC<AccountProps> = ({ onLogout }) => {
             setFullName(name);
             setEmail(mail);
             setProfileImgUrlFetch(imgUrl);
+            console.log(profileImgUrlFetch)
         }
 
         fetchUserData();

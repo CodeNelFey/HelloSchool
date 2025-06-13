@@ -7,6 +7,7 @@ import LittleTimer from "./components/LittleTimer";
 import Cours from "./components/Cours";
 import UpdateHistory from './components/UpdateHistory';
 import Notification from "./components/Notification"
+import {getFirstName, isLoggedIn} from "./db/account";
 
 function App() {
     const [content, setContent] = useState('home');
@@ -25,6 +26,15 @@ function App() {
     const [notification, setNotification] = useState<{ message: string, type: "error" | "success" | "info" } | null>(null);
 
     const initialDuration = isWorkPhase ? workDuration : breakDuration;
+
+    const [fullName, setFullName] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (isLoggedIn()) {
+            getFirstName().then(setFullName).catch(() => setFullName(null));
+        }
+    }, []);
+
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
@@ -119,7 +129,17 @@ function App() {
     const renderContent = () => {
         switch (content) {
             case 'home':
-                return <h1>HelloSchool</h1>;
+                if (isLoggedIn()) {
+                    return (
+                        <>
+                            <h1>Bonjour {fullName ?? 'Utilisateur'}</h1>
+                            <br />
+                            <h1>Bienvenue sur HelloSchool</h1>
+                        </>
+                    );
+                } else {
+                    return <h1>HelloSchool</h1>;
+                }
             case 'cours':
                 return <Cours />;
             case 'exercices':
