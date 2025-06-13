@@ -1,1 +1,1 @@
-export const api_url = "localhost:5000"
+export const api_url = "helloschool.sohan-birotheau.fr"

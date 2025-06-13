@@ -9,9 +9,10 @@ interface AccountProps {
 
 const Account: React.FC<AccountProps> = ({ onLogout }) => {
     const [userId, setUserId] = useState<number | null>(null);
-    const [profileImgUrlFetch, setProfileImgUrlFetch] = useState<string>("../../default-profile.png");
-    const [fullName, setFullName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
+    const [profileImgUrlFetch, setProfileImgUrlFetch] = useState<string | null>(null);
+    const [fullName, setFullName] = useState<string | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
+    const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchUserData() {
@@ -27,7 +28,6 @@ const Account: React.FC<AccountProps> = ({ onLogout }) => {
             setFullName(name);
             setEmail(mail);
             setProfileImgUrlFetch(imgUrl);
-            console.log(profileImgUrlFetch)
         }
 
         fetchUserData();
@@ -38,20 +38,52 @@ const Account: React.FC<AccountProps> = ({ onLogout }) => {
             <div className="modal-content account-content">
                 <h2>Mon Compte</h2>
 
-                {userId !== null && (
-                    <ImageUploadButton
-                        userId={userId}
-                        profileImgUrlFetch={profileImgUrlFetch}
-                    />
-                )}
+                <div className="image-container">
+                    {/* ✅ Placeholder visible tant que l’image ne s’est pas chargée */}
+                    {!isImageLoaded && (
+                        <div
+                            className="imageButton loading-placeholder"
+                            style={{
+                                backgroundColor: "red",
+                            }}
+                        />
+                    )}
+
+                    {/* ✅ Image invisible juste pour détecter si elle a fini de charger */}
+                    {profileImgUrlFetch && (
+                        <img
+                            src={profileImgUrlFetch}
+                            alt="Préchargement"
+                            style={{ display: "none" }}
+                            onLoad={() => setIsImageLoaded(true)}
+                        />
+                    )}
+
+                    {/* ✅ Composant réel, toujours affiché */}
+                    {userId !== null && profileImgUrlFetch && (
+                        <ImageUploadButton
+                            userId={userId}
+                            profileImgUrlFetch={profileImgUrlFetch}
+                        />
+                    )}
+                </div>
 
                 <div className="nameField">
-                    <h3>{fullName || "Nom inconnu"}</h3>
+                    {fullName ? (
+                        <h3>{fullName}</h3>
+                    ) : (
+                        <h3 className="loading-placeholder">Chargement du nom</h3>
+                    )}
                     <button className="editName">
                         {pen({ size: 24, color: "var(--primary-color)" })}
                     </button>
                 </div>
-                <p>{email || "Email inconnu"}</p>
+
+                {email ? (
+                    <p>{email}</p>
+                ) : (
+                    <p className="loading-placeholder">Chargement du mail</p>
+                )}
 
                 <button className="logoutButton" onClick={onLogout}>Déconnexion</button>
             </div>
