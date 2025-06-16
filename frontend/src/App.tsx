@@ -8,6 +8,7 @@ import Cours from "./components/Cours";
 import UpdateHistory from './components/UpdateHistory';
 import Notification from "./components/Notification"
 import {getFirstName, isLoggedIn} from "./db/account";
+import Messages from "./components/Messages";
 
 function App() {
     const [content, setContent] = useState('home');
@@ -166,6 +167,8 @@ function App() {
                         resetTimer={resetTimer}
                     />
                 );
+            case 'messages' :
+                return <Messages/>;
             case 'aide':
                 return <h1>Bienvenue dans l'aide</h1>;
             case 'propos':

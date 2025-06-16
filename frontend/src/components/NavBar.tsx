@@ -47,6 +47,7 @@ function NavBar({ onNavClick, onLoginClick }: { onNavClick: (section: string) =>
                 <li><a href="#" onClick={() => onNavClick('cours')}>Cours</a></li>
                 <li><a href="#" onClick={() => onNavClick('exercices')}>Exercices</a></li>
                 <li><a href="#" onClick={() => onNavClick('timer')}>Timer</a></li>
+                <li><a href="#" onClick={() => onNavClick('messages')}>Messages</a></li>
                 <li><a href="#" onClick={() => onNavClick('aide')}>Aide</a></li>
                 <li><a href="#" onClick={() => onNavClick('propos')}>A propos</a></li>
             </ul>

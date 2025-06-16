@@ -967,3 +967,177 @@ input[type="number"] {
         background-color: var(--primary-color-alpha);
     }
 }
+
+.messages {
+    display: flex;
+    height: calc(100% - 100px);
+    width: 100%;
+    position: relative;
+}
+
+.messages .discussions {
+    position: fixed;
+    background-color: var(--primary-color-alpha);
+    border-radius: 20px;
+    height: calc(100% - 100px);
+    top: 75px;
+    left: 25px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.messages .discussions h3 {
+    color: var(--primary-color);
+}
+
+.messages .discussions ul {
+    margin-top: 60px;
+    width: calc(100% - 20px);
+    list-style: none;
+    padding: 0;
+}
+
+.messages .discussions ul li {
+    width: 100%;
+    margin-top: 10px;
+    background-color: var(--primary-color-alpha);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.messages .discussions ul li:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.messages .discussions ul li img {
+    position: absolute;
+    height: 40px;
+    left: 5px;
+}
+
+.messages .chat {
+    position: absolute;
+    width: 75%;
+    top: 50px;
+    left: 20%;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
+
+
+.messages .chat .messagebar {
+    width: 70%;
+    position: fixed;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0;
+    z-index: 1000;
+}
+
+.messages .chat .messagebar input {
+    border-radius: 1000px;
+    background-color: var(--primary-color-alpha);
+    border: none;
+    height: 100%;
+}
+
+.messages .discussions .user-search-bar {
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.messages .discussions .user-search-bar input {
+    width: calc(100% - 40px);
+    margin-top: 15px;
+    margin-left: 10px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    color: var(--primary-color);
+    background-color: var(--primary-color-alpha);
+    padding: 0 10px;
+}
+
+.messages .discussions .user-search-bar .search-results {
+    background-color: var(--light-color);
+    margin: 10px 0 0 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.messages .discussions .user-search-bar .search-results li {
+    height: 50px;
+    background-color: transparent;
+    border-radius: 0;
+    margin-top: 0;
+    color: var(--dark-color);
+}
+
+.messages .discussions .user-search-bar .search-results li:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.messages .discussions .user-search-bar .search-results li img {
+    border-radius: 1000px;
+}
+
+.messages .chat .sendMessageButton {
+    background-color: var(--primary-color);
+    border-radius: 1000px;
+    border: none;
+    aspect-ratio: 1 / 1;
+    height: calc(100% + 16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-color);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.messages .chat .sendMessageButton:hover {
+    background-color: var(--primary-color-alpha);
+    color: var(--primary-color);
+}
+
+.rightClicPopup {
+    position: fixed;
+    background-color: var(--light-color);
+    z-index: 1000;
+    min-width: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.rightClicPopup button {
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.rightClicPopup button:hover {
+    width: 100%;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+}

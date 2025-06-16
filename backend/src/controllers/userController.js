@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import { getUserById } from '../db/userModel.js'; // ta fonction pour accéder à la BDD
 import multer from 'multer';
 import fs from 'fs';
+import {pool} from "../db/pool.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -76,3 +77,28 @@ export async function uploadProfilePicture(req, res) {
         path: `/profile-pics/${req.file.filename}`
     });
 }
+
+export async function searchUsers(req, res) {
+    try {
+        const query = (req.query.query || '').trim().toLowerCase();
+        if (!query) {
+            return res.status(400).json({ error: 'Requête vide' });
+        }
+
+        const like = `%${query}%`;
+        const sql = `
+            SELECT id, firstName, lastName, email
+            FROM users
+            WHERE LOWER(firstName) LIKE ? OR LOWER(lastName) LIKE ?
+            LIMIT 5
+        `;
+        const [rows] = await pool.query(sql, [like, like]);
+
+        res.json(rows);
+    } catch (err) {
+        console.error('Erreur dans searchUsersController :', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+}
+
+
