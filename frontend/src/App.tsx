@@ -9,6 +9,7 @@ import UpdateHistory from './components/UpdateHistory';
 import Notification from "./components/Notification"
 import {getFirstName, isLoggedIn} from "./db/account";
 import Messages from "./components/Messages";
+import FlashcardGroupsList from "./components/FlashcardGroupsList";
 
 function App() {
     const [content, setContent] = useState('home');
@@ -169,6 +170,8 @@ function App() {
                 );
             case 'messages' :
                 return <Messages/>;
+            case 'flashcards' :
+                return <FlashcardGroupsList/>
             case 'aide':
                 return <h1>Bienvenue dans l'aide</h1>;
             case 'propos':

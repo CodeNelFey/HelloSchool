@@ -116,7 +116,7 @@ html, body, #root {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 40%;
+    width: 60%;
 }
 
 .navbar ul li {
@@ -1141,3 +1141,351 @@ input[type="number"] {
     color: var(--light-color);
     border: none;
 }
+
+.flashcardsGroupList {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 70px;
+}
+
+.flashcardsGroupList ul {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row; /* important pour scroll horizontal */
+    list-style: none;
+    overflow-x: auto; /* horizontal scroll */
+    overflow-y: hidden;
+    padding: 1rem;
+    gap: 1rem;
+    scroll-behavior: smooth;
+}
+
+.flashcardsGroupList ul li button {
+    min-width: 300px;
+    min-height: 300px;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    background-color: var(--primary-color-alpha);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 20px;
+    font-size: 2em;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.flashcardsGroupList ul li .new {
+    color: var(--primary-color-alpha);
+    font-size: 10em;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashcardsGroupList ul li button:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.flashcardsGroupList ul li .new:hover {
+    color: var(--dark-color-alpha);
+}
+
+.flashcardsGroupDetails {
+    width: 100%;
+}
+
+
+.editMode .saveButton,
+.flashcardsGroupDetails .backButton {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    background-color: var(--primary-color-alpha);
+    border-radius: 1000px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: var(--dark-color);
+}
+
+
+.editMode .saveButton:hover,
+.flashcardsGroupDetails .backButton:hover  {
+    color: var(--light-color);
+    background-color: var(--primary-color);
+}
+
+
+.editMode .saveButton {
+    position: relative;
+}
+
+.flashcardsGroupDetails h2 {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-color);
+    font-size: 3em;
+    margin: 0;
+}
+
+
+.modeToggle {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 300px;
+    padding: 10px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 1rem auto;
+    background-color: var(--primary-color-alpha);
+}
+
+.modeToggle button {
+    flex: 1;
+    padding: 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    color: var(--dark-color);
+}
+
+.modeToggle button.active {
+    color: var(--light-color);
+}
+
+.modeToggle .slider {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    width: calc(50% - 10px);
+    background-color: var(--primary-color);
+    border-radius: 100px;
+    transition: transform 0.3s ease;
+    z-index: 0;
+}
+
+.modeToggle .slider.jeu {
+    transform: translateX(0%);
+}
+
+.modeToggle .slider.modif {
+    transform: translateX(100%);
+}
+
+.flashcard-container {
+    perspective: 2000px;
+    width: 225px;
+    height: 300px;
+    margin: 100px;
+    cursor: pointer;
+}
+
+.flashcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard .front,
+.flashcard .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 100px var(--dark-color-alpha);
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.flashcard .front .backgroundText,
+.flashcard .back .backgroundText {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    rotate: -45deg;
+    color: var(--dark-color-alpha);
+    font-size: 70px;
+    line-height: 60px;
+    z-index: -1;
+    opacity: 0.10;
+}
+
+.flashcard .front .backgroundText {
+    z-index: 0;
+    opacity: 0.5;
+    color: var(--primary-color-alpha);
+}
+
+.flashcard .front {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.flashcard .back {
+    background-color: var(--primary-color);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.flashcard p {
+    font-size: 2em;
+}
+
+.gameMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.gameMode .after,
+.gameMode .before {
+    background-color: var(--primary-color-alpha);
+    border-radius: 1000px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: var(--dark-color);
+}
+
+.gameMode .after:hover,
+.gameMode .before:hover  {
+    color: var(--light-color);
+    background-color: var(--primary-color);
+}
+
+.editMode {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.editMode .newElement {
+    background-color: var(--light-color);
+    padding: 10px;
+    border-radius: 1000px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.editMode ul li input,
+.editMode .newElement input {
+    background-color: var(--primary-color-alpha);
+    border: none;
+    width: 300px;
+    padding: 10px 20px;
+    color: var(--dark-color);
+}
+
+.editMode ul li .question,
+.editMode .newElement .question {
+    border-radius: 1000px 0 0 1000px;
+    border-right: solid 1px var(--primary-color-alpha);
+}
+
+.editMode ul li .reponse,
+.editMode .newElement .reponse {
+    border-radius: 0 1000px 1000px 0;
+    margin-right: 10px;
+}
+
+.editMode ul li button,
+.editMode .newElement button {
+    height: 37px;
+    width: 37px;
+    aspect-ratio: 1 / 1;
+    border-radius: 1000px;
+    background-color: var(--primary-color-alpha);
+    border: none;
+    color: var(--dark-color-alpha);
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.editMode ul li button:hover,
+.editMode .newElement button:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.editMode ul {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    list-style: none;
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--light-color);
+    border-radius: 28.5px;
+}
+
+.editMode ul li {
+    display: flex;
+    align-items: center;
+}
+
+.flashcardsGroupDetails .titleInput {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-color);
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--light-color);
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border: none;
+    border-radius: 1000px;
+    width: 40%;
+}
+
+.voidGroup {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+}
+

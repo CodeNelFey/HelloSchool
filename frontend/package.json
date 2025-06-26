@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "startFromScratch": "npm run geerate-menu && npm run dev",
+    "startFromScratch": "npm run generate-menu && npm run dev",
     "generate-menu": "ts-node generateMenuData.cjs"
   },
   "dependencies": {

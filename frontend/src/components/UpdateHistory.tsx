@@ -1,5 +1,11 @@
 const updates = [
     {
+        date: '20 Juin 2025',
+        title: 'Ajout des Flashcards',
+        description: 'Tu peux maintenant créer des groupes de flashcards pour t\'entraner et meme utiliser celles des autres utilisateurs si ils le veulent bien.',
+        tag: 'NEW'
+    },
+    {
         date: '11 Juin 2025',
         title: 'Ajout des comptes',
         description: 'Tu peux maintenant créer un compte et changer ta photo de profil ! Pour le moment, ça ne sert pas à grand-chose, mais ça ne saurait tarder.',

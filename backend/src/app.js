@@ -11,6 +11,8 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import conversationRoutes from './routes/conversationsRoutes.js';
 import messageRoutes from './routes/messagesRoutes.js';
+import chatRoutes from "./routes/chatRoutes.js";
+import flashcardRoutes from "./routes/flashcardRoutes.js"
 
 dotenv.config();
 
@@ -44,6 +46,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/profile-pics', express.static(path.join(__dirname, '../public/images/users')));
 app.use('/api/conversations', conversationRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/assistant', chatRoutes);
+app.use('/api/flashcards', flashcardRoutes)
 
 // --- Socket.io events ---
 
