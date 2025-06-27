@@ -57,7 +57,6 @@ export default function FlashcardGroupsList() {
             if (!token) throw new Error("Token manquant");
 
             const result = await createFlashcardGroup(
-                token,
                 "Nouveau groupe",
                 "",
                 false,
@@ -65,7 +64,7 @@ export default function FlashcardGroupsList() {
             );
 
             if (result) {
-                const newGroupWithDetails = await getFlashcardGroupById(token, result.groupId);
+                const newGroupWithDetails = await getFlashcardGroupById(result.groupId);
                 setGroups(prevGroups => [...prevGroups, newGroupWithDetails]);
                 setReadonly(false);
                 setSelectedGroup(newGroupWithDetails);
@@ -82,7 +81,7 @@ export default function FlashcardGroupsList() {
             const token = localStorage.getItem('token');
             if (!token && !readonly) throw new Error("Token manquant");
 
-            const refreshedGroup = await getFlashcardGroupById(token ?? "", selectedGroup!.id);
+            const refreshedGroup = await getFlashcardGroupById(selectedGroup!.id);
             setSelectedGroup(refreshedGroup);
         } catch (err) {
             console.error("Erreur lors du rafraîchissement du groupe", err);
@@ -96,7 +95,7 @@ export default function FlashcardGroupsList() {
             const token = localStorage.getItem('token');
             if (!token && !isReadonly) throw new Error("Token manquant");
 
-            const groupWithCards = await getFlashcardGroupById(token ?? "", groupId);
+            const groupWithCards = await getFlashcardGroupById(groupId);
             setReadonly(isReadonly);
             setSelectedGroup(groupWithCards);
         } catch (err) {

@@ -4,7 +4,7 @@ import {
     deleteFlashcard,
     type Flashcard,
     type FlashcardGroup,
-    updateFlashcard, updateGroupName
+    updateFlashcard, updateGroupName, updateGroupVisibility
 } from '../db/flashcards';
 import FlashcardGame from "./FlashcardGame";
 import FlashcardEditor from "./FlashcardEditor";
@@ -23,6 +23,8 @@ export default function FlashcardGroupDetail({ group, onBack, readonly = false, 
     const isReadonly = readonly;
     const [newName, setNewName] = useState(group.title)
     const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
+    const [visibilityPublic, setVisibilityPublic] = useState(group.is_public)
+
 
     useEffect(() => {
         if (notification) {
@@ -56,16 +58,24 @@ export default function FlashcardGroupDetail({ group, onBack, readonly = false, 
             {readonly == false && (
                 <div className="modeToggle">
                     <div className={`slider ${mode}`} />
-                    <button onClick={() => setMode('jeu')} disabled={mode === 'jeu'}>
+
+                    <button
+                        onClick={() => setMode('jeu')}
+                        disabled={mode === 'jeu'}
+                        className={mode === 'jeu' ? 'active' : ''}
+                    >
                         Jouer
                     </button>
+
                     <button
                         onClick={() => setMode('modif')}
                         disabled={mode === 'modif' || isReadonly}
+                        className={mode === 'modif' ? 'active' : ''}
                     >
                         Modifier
                     </button>
                 </div>
+
             )}
 
             {mode === 'jeu' && (
@@ -74,6 +84,10 @@ export default function FlashcardGroupDetail({ group, onBack, readonly = false, 
 
             {mode === 'modif' && !isReadonly && (
                 <FlashcardEditor
+                    onVisibilityChange={(newVisibility) => {
+                        setVisibilityPublic(newVisibility)
+                    }}
+                    isPublic={visibilityPublic}
                     initialCards={cards}
                     onSave={async (updatedCards, deletedCards) => {
                         const token = localStorage.getItem('token');
@@ -84,7 +98,7 @@ export default function FlashcardGroupDetail({ group, onBack, readonly = false, 
 
                         // Suppression
                         for (const card of deletedCards) {
-                            await deleteFlashcard(token, card.id);
+                            await deleteFlashcard(card.id);
                         }
 
                         // Mise à jour et ajout
@@ -92,16 +106,20 @@ export default function FlashcardGroupDetail({ group, onBack, readonly = false, 
                         const newCards = updatedCards.filter(card => !(typeof card.id === 'number' && card.id > 0));
 
                         for (const card of existingCards) {
-                            await updateFlashcard(token, card.id, card.question, card.answer);
+                            await updateFlashcard(card.id, card.question, card.answer);
                         }
 
                         if (newCards.length > 0) {
-                            await addFlashcardsToGroup(token, group.id, newCards);
+                            await addFlashcardsToGroup(group.id, newCards);
                         }
 
                         // Changement de nom
                         if (group.title !== newName) {
-                            await updateGroupName(token, group.id, newName);
+                            await updateGroupName(group.id, newName);
+                        }
+
+                        if (group.is_public !== visibilityPublic) {
+                            await updateGroupVisibility(group.id, visibilityPublic)
                         }
 
                         setNotification({ message: "Cartes sauvegardées !", type: "success" });

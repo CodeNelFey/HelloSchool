@@ -1,6 +1,8 @@
 import { pool } from '../db/pool.js';
 import { hashPassword, comparePassword } from '../utils/hash.js';
 import jwt from 'jsonwebtoken';
+import { randomBytes } from 'crypto';
+
 
 function isValidDate(dateString) {
     const date = new Date(dateString);
@@ -57,32 +59,33 @@ export async function login(req, res) {
     }
 
     try {
-        // Chercher l'utilisateur dans la BD
         const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-
         if (rows.length === 0) {
             return res.status(401).json({ message: 'Utilisateur non trouvé' });
         }
 
         const user = rows[0];
-
-        // Comparer le mot de passe envoyé avec celui stocké (hashé)
         const isPasswordValid = await comparePassword(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
 
-        // Générer un token JWT
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             { userId: user.id, email: user.email },
             process.env.JWT_SECRET,
-            { expiresIn: '24h' }
+            { expiresIn: '15m' } // courte durée
         );
 
-        // Répondre avec token et infos utiles
+        const refreshToken = randomBytes(64).toString('hex'); // token sécurisé
+
+        // Stocker le refresh token en base
+        await pool.query('UPDATE users SET refresh_token = ? WHERE id = ?', [refreshToken, user.id]);
+
+        // Envoi des deux tokens
         return res.status(200).json({
             message: 'Connexion réussie',
-            token,
+            accessToken,
+            refreshToken,
             user: {
                 id: user.id,
                 firstname: user.firstname,
@@ -92,6 +95,35 @@ export async function login(req, res) {
         });
     } catch (error) {
         console.error('Login error:', error);
+        return res.status(500).json({ message: 'Erreur serveur' });
+    }
+}
+
+export async function refreshToken(req, res) {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        return res.status(400).json({ message: 'Refresh token manquant' });
+    }
+
+    try {
+        const [rows] = await pool.query('SELECT * FROM users WHERE refresh_token = ?', [refreshToken]);
+
+        if (rows.length === 0) {
+            return res.status(403).json({ message: 'Refresh token invalide' });
+        }
+
+        const user = rows[0];
+
+        const newAccessToken = jwt.sign(
+            { userId: user.id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '15m' } // ou autre durée
+        );
+
+        return res.status(200).json({ accessToken: newAccessToken });
+    } catch (error) {
+        console.error('Erreur lors du refresh token:', error);
         return res.status(500).json({ message: 'Erreur serveur' });
     }
 }

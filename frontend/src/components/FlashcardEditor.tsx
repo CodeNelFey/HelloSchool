@@ -4,9 +4,16 @@ import type { Flashcard } from '../db/flashcards'; // adapte selon ta définitio
 interface FlashcardEditorProps {
     initialCards?: Flashcard[];
     onSave: (cards: Flashcard[], cardsToDelete: Flashcard[]) => Promise<void>;
+    isPublic: boolean;
+    onVisibilityChange: (isPublic: boolean) => void;
 }
 
-export default function FlashcardEditor({ initialCards, onSave }: FlashcardEditorProps) {
+export default function FlashcardEditor({
+                                            initialCards,
+                                            onSave,
+                                            isPublic,
+                                            onVisibilityChange
+                                        }: FlashcardEditorProps) {
     const [cards, setCards] = useState<Flashcard[]>(initialCards ?? []);
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');
@@ -86,7 +93,21 @@ export default function FlashcardEditor({ initialCards, onSave }: FlashcardEdito
                     </li>
                 ))}
             </ul>
-
+            <div className="modeToggle visibility">
+                <div className={`slider ${isPublic ? 'public' : 'private'}`} />
+                <button
+                    onClick={() => onVisibilityChange(false)}
+                    className={!isPublic ? 'active' : ''}
+                >
+                    Privée
+                </button>
+                <button
+                    onClick={() => onVisibilityChange(true)}
+                    className={isPublic ? 'active' : ''}
+                >
+                    Publique
+                </button>
+            </div>
             <button className="saveButton" onClick={handleSave}>Sauvegarder les modifications</button>
         </div>
     );

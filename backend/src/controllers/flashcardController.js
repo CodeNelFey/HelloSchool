@@ -74,6 +74,30 @@ export async function updateFlashcardName(req, res)  {
     }
 };
 
+export async function updateFlashcardVisibility(req, res)  {
+    const { visibility } = req.body;
+    const flashcardId = req.params.id;
+
+    var is_public
+
+    if (visibility) {
+        is_public = 1
+    } else {
+        is_public = 0
+    }
+    console.log("maj du nom d'une carte")
+    try {
+        await pool.query(
+            'UPDATE flashcard_groups SET is_public = ? WHERE id = ?',
+            [is_public, flashcardId]
+        );
+        res.sendStatus(200);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur lors de la mise à jour de la flashcard.' });
+    }
+};
+
 export async function deleteFlashcard(req, res)  {
     const flashcardId = req.params.id;
 

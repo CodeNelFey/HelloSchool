@@ -4,7 +4,7 @@ import {
     addFlashcardsToGroup,
     createGroup,
     deleteFlashcard, getFlashcardGroupById, getPublicFlashcardGroups, getUserFlashcardGroups,
-    updateFlashcard, updateFlashcardName
+    updateFlashcard, updateFlashcardName, updateFlashcardVisibility
 } from "../controllers/flashcardController.js";
 const router = express.Router();
 
@@ -16,5 +16,6 @@ router.post('/group/:id/add', authenticateToken, addFlashcardsToGroup);
 router.get('/groups', authenticateToken, getUserFlashcardGroups);
 router.get('/group/:id', authenticateToken, getFlashcardGroupById);
 router.get('/public-groups', getPublicFlashcardGroups);
+router.put('/changeVisibility/:id', authenticateToken, updateFlashcardVisibility)
 
 export default router;

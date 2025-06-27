@@ -124,7 +124,7 @@ export async function getEmail(): Promise<string> {
  * Vérifie si un utilisateur est connecté (présence de token et user).
  */
 export function isLoggedIn(): boolean {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     const user = getCurrentUser();
     return !!token && !!user;
 }
@@ -134,7 +134,8 @@ export function isLoggedIn(): boolean {
  */
 export function logout(): void {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
 }
 
 
